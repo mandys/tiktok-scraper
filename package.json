@@ -86,5 +86,8 @@
     "bugs": {
         "url": "https://github.com/drawrowfly/tiktok-scraper/issues"
     },
+    "publishConfig": {
+        "@mandys:registry": "https://npm.pkg.github.com"
+    },
     "homepage": "https://github.com/drawrowfly/tiktok-scraper#readme"
 }
