@@ -1,5 +1,5 @@
 {
-    "name": "tiktok-scraper",
+    "name": "@mandys/tiktok-scraper",
     "version": "1.4.35",
     "description": "TikTok Scraper & Downloader. Scrape information from User, Trending and HashTag pages and download video posts",
     "main": "./build/index.js",
