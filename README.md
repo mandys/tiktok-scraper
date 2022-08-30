@@ -164,6 +164,9 @@ Options:
                        videos avoiding duplicates     [boolean] [default: false]
   --historypath        Set custom path where history file/files will be stored
                    [default: "/var/folders/d5/fyh1_f2926q7c65g7skc0qh80000gn/T"]
+  --throttlelimit      Set custom maximum number of calls to TikTok within an
+                       interval.
+  --throttleinterval   Set custom timespan for throttle-interval in milliseconds                                      
   --remove, -r         Delete the history record by entering "TYPE:INPUT" or
                        "all" to clean all the history. For example: user:bob
                                                                    [default: ""]

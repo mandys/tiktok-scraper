@@ -14,11 +14,12 @@ const events_1 = require("events");
 const socks_proxy_agent_1 = require("socks-proxy-agent");
 const async_1 = require("async");
 const url_1 = require("url");
+const p_throttle_1 = __importDefault(require("p-throttle"));
 const constant_1 = __importDefault(require("../constant"));
 const helpers_1 = require("../helpers");
 const core_1 = require("../core");
 class TikTokScraper extends events_1.EventEmitter {
-    constructor({ download, filepath, filetype, proxy, strictSSL = true, asyncDownload, cli = false, event = false, progress = false, input, number, since, type, by_user_id = false, store_history = false, historyPath = '', noWaterMark = false, useTestEndpoints = false, fileName = '', timeout = 0, bulk = false, zip = false, test = false, hdVideo = false, webHookUrl = '', method = 'POST', headers, verifyFp = '', sessionList = [], }) {
+    constructor({ download, filepath, filetype, proxy, strictSSL = true, asyncDownload, cli = false, event = false, progress = false, input, number, since, type, by_user_id = false, store_history = false, historyPath = '', noWaterMark = false, useTestEndpoints = false, fileName = '', timeout = 0, bulk = false, zip = false, test = false, hdVideo = false, webHookUrl = '', method = 'POST', headers, verifyFp = '', sessionList = [], throttleLimit, throttleInterval, }) {
         super();
         this.storeValue = '';
         this.userIdStore = '';
@@ -82,6 +83,15 @@ class TikTokScraper extends events_1.EventEmitter {
             bad: 0,
         };
         this.store = [];
+        this.throttle =
+            !!(throttleLimit && throttleInterval) &&
+                p_throttle_1.default({
+                    limit: throttleLimit,
+                    interval: throttleInterval,
+                });
+        if (this.throttle) {
+            this.request = this.throttle(this.request);
+        }
     }
     get fileDestination() {
         if (this.fileName) {

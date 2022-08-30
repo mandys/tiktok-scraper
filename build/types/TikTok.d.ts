@@ -27,6 +27,8 @@ export interface Options {
     remove?: string;
     fileName?: string;
     historyPath?: string;
+    throttleLimit?: number;
+    throttleInterval?: number;
     timeout?: number;
     hdVideo?: boolean;
     randomUa?: boolean;
@@ -67,6 +69,8 @@ export interface TikTokConstructor {
     headers: Headers;
     verifyFp?: string;
     sessionList?: string[];
+    throttleLimit?: number;
+    throttleInterval?: number;
 }
 export interface Hashtags {
     id: string;
