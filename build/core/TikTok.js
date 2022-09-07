@@ -553,7 +553,7 @@ class TikTokScraper extends events_1.EventEmitter {
                             id: ID,
                             name,
                         }))
-                        : [] });
+                        : [], comments: [] });
                 if (this.event) {
                     this.emit('data', item);
                     this.collector.push({});
@@ -877,6 +877,16 @@ class TikTokScraper extends events_1.EventEmitter {
         else {
             videoData = await this.getVideoMetadata();
         }
+        let commentData;
+        for (let paginationStepSize = 30, currentPage = 0; currentPage < videoData.stats.commentCount; currentPage += paginationStepSize) {
+            const data = await this.getCommentMetadata('', currentPage, paginationStepSize);
+            if (commentData === undefined) {
+                commentData = data;
+            }
+            else if (data.comments !== null) {
+                commentData.comments = commentData.comments.concat(data.comments);
+            }
+        }
         const videoItem = {
             id: videoData.id,
             secretID: videoData.video.id,
@@ -944,6 +954,7 @@ class TikTokScraper extends events_1.EventEmitter {
                     name,
                 }))
                 : [],
+            comments: commentData === null || commentData === void 0 ? void 0 : commentData.comments,
         };
         try {
             if (this.noWaterMark) {
@@ -973,6 +984,43 @@ class TikTokScraper extends events_1.EventEmitter {
                 resolve(null);
             });
         });
+    }
+    async getCommentMetadata(url = '', _cursor = 0, _count = 30) {
+        const videoData = /tiktok.com\/(@[\w.-]+)\/video\/(\d+)/.exec(url || this.input);
+        if (videoData) {
+            const videoId = videoData[2];
+            const query = {
+                method: 'GET',
+                uri: `https://www.tiktok.com/api/comment/list/`,
+                json: true,
+                followAllRedirects: true,
+                headers: {
+                    cookie: this.cookieJar.getCookieString(`https://tiktok.com/`),
+                },
+                qs: {
+                    aweme_id: videoId,
+                    aid: 1988,
+                    history_len: 6,
+                    cursor: _cursor,
+                    count: _count,
+                },
+            };
+            const unsignedURL = `${query.uri}?${new url_1.URLSearchParams(query.qs).toString()}`;
+            const _signature = helpers_1.sign(unsignedURL, this.headers['user-agent']);
+            query.qs._signature = _signature;
+            try {
+                const response = await this.request(query);
+                if (response.status_code === 0) {
+                    return response;
+                }
+            }
+            catch (err) {
+                if (err.statusCode === 404) {
+                    throw new Error(err.string);
+                }
+            }
+        }
+        throw new Error(`Can't extract comment metadata of ${this.input}`);
     }
 }
 exports.TikTokScraper = TikTokScraper;

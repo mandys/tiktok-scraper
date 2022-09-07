@@ -83,4 +83,5 @@ export declare class TikTokScraper extends EventEmitter {
     private getVideoMetadata;
     getVideoMeta(html?: boolean): Promise<PostCollector>;
     private sendDataToWebHookUrl;
+    private getCommentMetadata;
 }
