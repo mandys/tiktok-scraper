@@ -1253,7 +1253,7 @@ export class TikTokScraper extends EventEmitter {
 
             const options = {
                 method: 'GET',
-                uri: `https://www.tiktok.com/node/share/video/${videoUsername}/${videoId}`,
+                uri: `${this.mainHost}node/share/video/${videoUsername}/${videoId}`,
                 json: true,
             };
 

@@ -849,7 +849,7 @@ class TikTokScraper extends events_1.EventEmitter {
             const videoId = videoData[2];
             const options = {
                 method: 'GET',
-                uri: `https://www.tiktok.com/node/share/video/${videoUsername}/${videoId}`,
+                uri: `${this.mainHost}node/share/video/${videoUsername}/${videoId}`,
                 json: true,
             };
             try {
