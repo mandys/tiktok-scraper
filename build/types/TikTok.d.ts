@@ -11,6 +11,7 @@ export interface Options {
     sessionFile?: string;
     event?: boolean;
     useTestEndpoints?: boolean;
+    useCustomHost?: string;
     by_user_id?: boolean;
     download?: boolean;
     bulk?: boolean;
@@ -42,6 +43,7 @@ export interface TikTokConstructor {
     filepath: string;
     filetype: string;
     useTestEndpoints?: boolean;
+    useCustomHost?: string;
     proxy: string[] | string;
     strictSSL?: boolean;
     asyncDownload: number;

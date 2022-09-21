@@ -5,6 +5,7 @@ import { PostCollector, TikTokConstructor, Result, MusicMetadata, UserMetadata, 
 import { Downloader } from '../core';
 export declare class TikTokScraper extends EventEmitter {
     private mainHost;
+    private customHost;
     private userIdStore;
     private download;
     private filepath;
@@ -48,7 +49,7 @@ export declare class TikTokScraper extends EventEmitter {
     private store;
     private throttle;
     cookieJar: CookieJar;
-    constructor({ download, filepath, filetype, proxy, strictSSL, asyncDownload, cli, event, progress, input, number, since, type, by_user_id, store_history, historyPath, noWaterMark, useTestEndpoints, fileName, timeout, bulk, zip, test, hdVideo, webHookUrl, method, headers, verifyFp, sessionList, throttleLimit, throttleInterval, }: TikTokConstructor);
+    constructor({ download, filepath, filetype, proxy, strictSSL, asyncDownload, cli, event, progress, input, number, since, type, by_user_id, store_history, historyPath, noWaterMark, useTestEndpoints, useCustomHost, fileName, timeout, bulk, zip, test, hdVideo, webHookUrl, method, headers, verifyFp, sessionList, throttleLimit, throttleInterval, }: TikTokConstructor);
     private get fileDestination();
     private get folderDestination();
     private get getApiEndpoint();

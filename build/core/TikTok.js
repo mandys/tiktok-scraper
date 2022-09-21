@@ -19,12 +19,13 @@ const constant_1 = __importDefault(require("../constant"));
 const helpers_1 = require("../helpers");
 const core_1 = require("../core");
 class TikTokScraper extends events_1.EventEmitter {
-    constructor({ download, filepath, filetype, proxy, strictSSL = true, asyncDownload, cli = false, event = false, progress = false, input, number, since, type, by_user_id = false, store_history = false, historyPath = '', noWaterMark = false, useTestEndpoints = false, fileName = '', timeout = 0, bulk = false, zip = false, test = false, hdVideo = false, webHookUrl = '', method = 'POST', headers, verifyFp = '', sessionList = [], throttleLimit, throttleInterval, }) {
+    constructor({ download, filepath, filetype, proxy, strictSSL = true, asyncDownload, cli = false, event = false, progress = false, input, number, since, type, by_user_id = false, store_history = false, historyPath = '', noWaterMark = false, useTestEndpoints = false, useCustomHost, fileName = '', timeout = 0, bulk = false, zip = false, test = false, hdVideo = false, webHookUrl = '', method = 'POST', headers, verifyFp = '', sessionList = [], throttleLimit, throttleInterval, }) {
         super();
         this.storeValue = '';
         this.userIdStore = '';
         this.verifyFp = verifyFp;
         this.mainHost = useTestEndpoints ? 'https://t.tiktok.com/' : 'https://m.tiktok.com/';
+        this.customHost = useCustomHost ? useCustomHost : 'https://www.tiktok.com/';
         this.headers = headers;
         this.download = download;
         this.filepath = process.env.SCRAPING_FROM_DOCKER ? '/usr/app/files' : filepath || '';
@@ -849,7 +850,7 @@ class TikTokScraper extends events_1.EventEmitter {
             const videoId = videoData[2];
             const options = {
                 method: 'GET',
-                uri: `${this.mainHost}node/share/video/${videoUsername}/${videoId}`,
+                uri: `${this.customHost}node/share/video/${videoUsername}/${videoId}`,
                 json: true,
             };
             try {

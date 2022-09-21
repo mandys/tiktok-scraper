@@ -42,6 +42,8 @@ import { Downloader } from '../core';
 export class TikTokScraper extends EventEmitter {
     private mainHost: string;
 
+    private customHost: string;
+
     private userIdStore: string;
 
     private download: boolean;
@@ -150,6 +152,7 @@ export class TikTokScraper extends EventEmitter {
         historyPath = '',
         noWaterMark = false,
         useTestEndpoints = false,
+        useCustomHost,
         fileName = '',
         timeout = 0,
         bulk = false,
@@ -168,6 +171,7 @@ export class TikTokScraper extends EventEmitter {
         this.userIdStore = '';
         this.verifyFp = verifyFp;
         this.mainHost = useTestEndpoints ? 'https://t.tiktok.com/' : 'https://m.tiktok.com/';
+        this.customHost = useCustomHost ? useCustomHost : 'https://www.tiktok.com/';
         this.headers = headers;
         this.download = download;
         this.filepath = process.env.SCRAPING_FROM_DOCKER ? '/usr/app/files' : filepath || '';
@@ -1253,7 +1257,7 @@ export class TikTokScraper extends EventEmitter {
 
             const options = {
                 method: 'GET',
-                uri: `${this.mainHost}node/share/video/${videoUsername}/${videoId}`,
+                uri: `${this.customHost}node/share/video/${videoUsername}/${videoId}`,
                 json: true,
             };
 
