@@ -170,7 +170,7 @@ export class TikTokScraper extends EventEmitter {
         super();
         this.userIdStore = '';
         this.verifyFp = verifyFp;
-        this.mainHost = useTestEndpoints ? 'https://t.tiktok.com/' : 'https://m.tiktok.com/';
+        this.mainHost = useTestEndpoints ? 'https://www.tiktok.com/' : 'https://m.tiktok.com/';
         this.customHost = useCustomHost ? useCustomHost : 'https://www.tiktok.com/';
         this.headers = headers;
         this.download = download;
